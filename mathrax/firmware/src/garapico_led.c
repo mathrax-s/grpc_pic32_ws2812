@@ -28,9 +28,6 @@
 // *****************************************************************************
 
 #include "garapico_led.h"
-#include "./user.h"
-#include "./ledmatrix_ws2812.h"
-#include "./vsc3_keyname.h"
 
 #include "./animation_data/pattern.h"       //HEART_REV, BREAK_HEART
 #include "./animation_data/broken.h"        //BROKEN

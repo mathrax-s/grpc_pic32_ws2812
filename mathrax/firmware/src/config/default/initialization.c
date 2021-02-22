@@ -243,7 +243,7 @@ void SYS_Initialize ( void* data )
 
 
     SERIAL_RCV_Initialize();
-    LED_Initialize();
+    GARAPICO_LED_Initialize();
 
 
     EVIC_Initialize();

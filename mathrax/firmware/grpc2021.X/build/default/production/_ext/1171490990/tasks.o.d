@@ -31,8 +31,10 @@ build/default/production/_ext/1171490990/tasks.o: \
  ../src/config/default/system/int/sys_int.h \
  ../src/config/default/system/dma/sys_dma.h \
  ../src/config/default/osal/osal.h \
- ../src/config/default/system/debug/sys_debug.h ../src/app.h \
- ../src/config/default/peripheral/gpio/plib_gpio.h ../src/garapico_led.h
+ ../src/config/default/system/debug/sys_debug.h ../src/serial_rcv.h \
+ ../src/config/default/peripheral/gpio/plib_gpio.h ../src/./user.h \
+ ../src/./ledmatrix_ws2812.h ../src/./vsc3_keyname.h \
+ ../src/garapico_led.h
 
 ../src/config/default/configuration.h:
 
@@ -104,8 +106,14 @@ build/default/production/_ext/1171490990/tasks.o: \
 
 ../src/config/default/system/debug/sys_debug.h:
 
-../src/app.h:
+../src/serial_rcv.h:
 
 ../src/config/default/peripheral/gpio/plib_gpio.h:
+
+../src/./user.h:
+
+../src/./ledmatrix_ws2812.h:
+
+../src/./vsc3_keyname.h:
 
 ../src/garapico_led.h:

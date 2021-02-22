@@ -48,7 +48,7 @@
     This structure should be initialized by the SERIAL_RCV_Initialize function.
 
     Application strings and buffers are be defined outside this structure.
-*/
+ */
 
 SERIAL_RCV_DATA serial_rcvData;
 
@@ -59,7 +59,7 @@ SERIAL_RCV_DATA serial_rcvData;
 // *****************************************************************************
 
 /* TODO:  Add any necessary callback functions.
-*/
+ */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -69,7 +69,7 @@ SERIAL_RCV_DATA serial_rcvData;
 
 
 /* TODO:  Add any necessary local functions.
-*/
+ */
 
 
 // *****************************************************************************
@@ -86,18 +86,19 @@ SERIAL_RCV_DATA serial_rcvData;
     See prototype in serial_rcv.h.
  */
 
-void SERIAL_RCV_Initialize ( void )
-{
+void SERIAL_RCV_Initialize(void) {
     /* Place the App state machine in its initial state. */
     serial_rcvData.state = SERIAL_RCV_STATE_INIT;
-
 
 
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
-}
+    //    serial_rcvData.transferStatus = false;
+    serial_rcvData.usartHandle = DRV_HANDLE_INVALID;
+    serial_rcvData.bufferHandle = DRV_USART_BUFFER_HANDLE_INVALID;
 
+}
 
 /******************************************************************************
   Function:
@@ -107,36 +108,47 @@ void SERIAL_RCV_Initialize ( void )
     See prototype in serial_rcv.h.
  */
 
-void SERIAL_RCV_Tasks ( void )
-{
+void SERIAL_RCV_Tasks(void) {
 
     /* Check the application's current state. */
-    switch ( serial_rcvData.state )
-    {
-        /* Application's initial state. */
+    switch (serial_rcvData.state) {
+            /* Application's initial state. */
         case SERIAL_RCV_STATE_INIT:
         {
             bool appInitialized = true;
 
-
-            if (appInitialized)
-            {
-
-                serial_rcvData.state = SERIAL_RCV_STATE_SERVICE_TASKS;
+            if (appInitialized) {
+                resetAnimation();
+                myData[0] = -1;
+                serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
             }
             break;
         }
 
-        case SERIAL_RCV_STATE_SERVICE_TASKS:
+        case SERIAL_RCV_STATE_RECEIVE_DATA:
         {
-
+            DRV_USART_ReadBufferAdd(serial_rcvData.usartHandle, serial_rcvData.readBuffer, SERIAL_RCV_DATA_SIZE, &serial_rcvData.bufferHandle);
+            if (serial_rcvData.bufferHandle != DRV_USART_BUFFER_HANDLE_INVALID) {
+                serial_rcvData.state = SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE;
+            } else {
+                serial_rcvData.state = SERIAL_RCV_STATE_ERROR;
+            }
             break;
         }
+        case SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE:
+            led_Toggle();
+            GARAPIKO_receive(serial_rcvData.readBuffer[0]);
+            serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
+            break;
+            
+            /* TODO: implement your application state machine.*/
+        case SERIAL_RCV_STATE_ERROR:
+            led_Clear();
+            serial_rcvData.state = SERIAL_RCV_STATE_IDLE;
+            break;
 
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
+        case SERIAL_RCV_STATE_IDLE:
+            /* The default state should never be executed. */
         default:
         {
             /* TODO: Handle error in application's state machine. */
@@ -145,6 +157,79 @@ void SERIAL_RCV_Tasks ( void )
     }
 }
 
+void GARAPIKO_receive(uint8_t RcvData) {
+    if (RcvData == 255) {
+        dataPos = 0;
+    } else {
+        if (
+                RcvData == BATSU
+                || RcvData == SANKAKU
+                || RcvData == MARU
+                || RcvData == SHIKAKU
+
+                || RcvData == UP
+                || RcvData == DOWN
+                || RcvData == LEFT
+                || RcvData == RIGHT
+
+                || RcvData == STK_L_LEFT
+                || RcvData == STK_L_RIGHT
+                || RcvData == STK_L_UP
+                || RcvData == STK_L_DOWN
+
+                || RcvData == STK_R_LEFT
+                || RcvData == STK_R_RIGHT
+                || RcvData == STK_R_UP
+                || RcvData == STK_R_DOWN
+
+
+                || RcvData == 'a' //L1
+                || RcvData == 'b' //R1
+                || RcvData == 'c' //L2
+                || RcvData == 'd' //R2
+
+                ) {
+
+            if (lastData != RcvData) {
+                myData[dataPos] = RcvData;
+
+                if (
+                        RcvData == UP
+                        || RcvData == DOWN
+                        || RcvData == LEFT
+                        || RcvData == RIGHT
+                        || RcvData == BATSU
+
+                        || RcvData == STK_L_LEFT
+                        || RcvData == STK_L_RIGHT
+                        || RcvData == STK_L_UP
+                        || RcvData == STK_L_DOWN
+
+                        || RcvData == STK_R_LEFT
+                        || RcvData == STK_R_RIGHT
+                        || RcvData == STK_R_UP
+                        || RcvData == STK_R_DOWN
+
+                        ) {
+                    frameCount = 0;
+                    aCnt = 0;
+
+                } else {
+                    deletePattern();
+                }
+                //            } else if (
+                //                    RcvData == STK_L_DOWN) {
+                //                frameCount = 0;
+                //                aCnt = 0;
+
+            }
+            dataPos++;
+
+            if (dataPos >= 2)dataPos = 0;
+        }
+    }
+    lastData = myData[0];
+}
 
 /*******************************************************************************
  End of File

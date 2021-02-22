@@ -124,7 +124,7 @@
       <itemPath>../src/user.h</itemPath>
       <itemPath>../src/vsc3_keyname.h</itemPath>
       <itemPath>../src/serial_rcv.h</itemPath>
-      <itemPath>../src/led .h</itemPath>
+      <itemPath>../src/garapico_led.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -183,7 +183,7 @@
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/user.c</itemPath>
       <itemPath>../src/serial_rcv.c</itemPath>
-      <itemPath>../src/led .c</itemPath>
+      <itemPath>../src/garapico_led.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

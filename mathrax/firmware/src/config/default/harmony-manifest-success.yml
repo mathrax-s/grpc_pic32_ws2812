@@ -4,7 +4,7 @@
 
 
 project: mathrax
-creation_date: 2021-02-18T11:57:56.731+09:00[Asia/Tokyo]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2021-02-22T12:49:53.819+09:00[Asia/Tokyo]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Mac OS X
 mhc_mode: IDE            # [IDE|Standalone|Headless]
 mhc_version: v3.6.5

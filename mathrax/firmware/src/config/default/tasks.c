@@ -84,8 +84,8 @@ void SYS_Tasks ( void )
         /* Call Application task SERIAL_RCV. */
     SERIAL_RCV_Tasks();
 
-    /* Call Application task LED. */
-    LED_Tasks();
+    /* Call Application task GARAPICO_LED. */
+    GARAPICO_LED_Tasks();
 
 
 

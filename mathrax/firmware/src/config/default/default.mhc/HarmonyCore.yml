@@ -42,7 +42,7 @@ children:
       - type: String
         attributes: {id: name}
         children:
-        - {type: Value, value: led .c}
+        - {type: Value, value: garapico_led.c}
   - type: File
     attributes: {id: APP1_H}
     children:
@@ -55,7 +55,7 @@ children:
       - type: String
         attributes: {id: name}
         children:
-        - {type: Value, value: led .h}
+        - {type: Value, value: garapico_led.h}
   - type: KeyValueSet
     attributes: {id: COMMON_SYMBOL_CNTR}
     children:
@@ -264,7 +264,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: 'led '}
+        attributes: {value: garapico_led}
   - type: File
     attributes: {id: INT_DEF}
     children:
