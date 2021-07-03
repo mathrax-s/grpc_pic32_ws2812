@@ -39,11 +39,10 @@
 
 #include "./animation_data/wave.h"          //WAVE
 #include "./animation_data/energy.h"        //ENERGY
-#include "./animation_data/onpu_blue.h"     //ONPU_BLUE
-#include "./animation_data/onpu_pink.h"     //ONPU_PINK
-#include "./animation_data/shinobi.h"       //SHINOBI
+#include "./animation_data/fire.h"          //FIRE
 #include "./animation_data/mini_heart.h"    //MINI HEART
-#include "./animation_data/baloon.h"        //BALOON
+#include "./animation_data/clock_anime.h"   //CLOCK
+#include "./animation_data/drop.h"          //DROP
 
 // *****************************************************************************
 // *****************************************************************************
@@ -222,20 +221,16 @@ void GARAPICO_LED_Tasks(void) {
                     break;
 
 
-
+//JOYSTICK L
                 case STK_L_LEFT:
-                    //STAR
-                    gp.picture = star;
-                    gp.frame = frame_star;
-                    gp.framesize = ARRAY_SIZE(frame_star);
-
-                    g_animation(gp, 3, LOOP);
+                    //DROP CYAN
+                    setPattern(drop[1], 2);
                     break;
 
 
                 case STK_L_RIGHT:
-                    //SHINOBI
-                    setPattern(shinobi[0], 2);
+                    //FIRE
+                    setPattern(fire[0], 2);
 
                     break;
 
@@ -252,15 +247,15 @@ void GARAPICO_LED_Tasks(void) {
 
 
                 case STK_L_DOWN:
-                    //ONPU_PINK ANIME
-                    gp.picture = onpu_pink_anime;
-                    gp.frame = frame_onpu_pink_anime;
-                    gp.framesize = ARRAY_SIZE(frame_onpu_pink_anime);
+                    //CLOCK
+                    gp.picture = clock_anime;
+                    gp.frame = frame_clock_anime;
+                    gp.framesize = ARRAY_SIZE(frame_clock_anime);
 
-                    g_animation(gp, 12, ONCE);
+                    g_animation(gp, 4, LOOP);
                     break;
 
-
+//JOYSTICK R
                 case STK_R_LEFT:
                     //MINI HEART1
                     setPattern(mini_heart1[0], 2);
@@ -272,17 +267,17 @@ void GARAPICO_LED_Tasks(void) {
                     break;
 
                 case STK_R_UP:
-                    //BALOON
-                    setPattern(baloon[0], 2);
+                    //DROP
+                    setPattern(drop[0], 2);
                     break;
 
                 case STK_R_DOWN:
-                    //ONPU BLUE ANIME
-                    gp.picture = onpu_blue_anime;
-                    gp.frame = frame_onpu_blue_anime;
-                    gp.framesize = ARRAY_SIZE(frame_onpu_blue_anime);
+                    //ENERGY
+                    gp.picture = energy;
+                    gp.frame = frame_energy;
+                    gp.framesize = ARRAY_SIZE(frame_energy);
 
-                    g_animation(gp, 12, ONCE);
+                    g_animation(gp, 4, ONCE);
                     break;
             }
 

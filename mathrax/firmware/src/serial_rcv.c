@@ -52,6 +52,8 @@
 
 SERIAL_RCV_DATA serial_rcvData;
 
+static const char messageBuffer[] =
+"*** GARAPICO ***\r\n";
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -60,7 +62,26 @@ SERIAL_RCV_DATA serial_rcvData;
 
 /* TODO:  Add any necessary callback functions.
  */
+static void SERIAL_RCV_USARTBufferEventHandler(
+    DRV_USART_BUFFER_EVENT bufferEvent,
+    DRV_USART_BUFFER_HANDLE bufferHandle,
+    uintptr_t context
+)
+{
+    switch(bufferEvent)
+    {
+        case DRV_USART_BUFFER_EVENT_COMPLETE:
+            serial_rcvData.transferStatus = true;
+            break;
 
+        case DRV_USART_BUFFER_EVENT_ERROR:
+            serial_rcvData.state = SERIAL_RCV_STATE_ERROR;
+            break;
+
+        default:
+            break;
+    }
+}
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Local Functions
@@ -91,13 +112,14 @@ void SERIAL_RCV_Initialize(void) {
     serial_rcvData.state = SERIAL_RCV_STATE_INIT;
 
 
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
-    //    serial_rcvData.transferStatus = false;
-    serial_rcvData.usartHandle = DRV_HANDLE_INVALID;
-    serial_rcvData.bufferHandle = DRV_USART_BUFFER_HANDLE_INVALID;
+    /* Place the App state machine in its initial state. */
+    serial_rcvData.transferStatus  = false;
+    serial_rcvData.usartHandle     = DRV_HANDLE_INVALID;
+    serial_rcvData.bufferHandle    = DRV_USART_BUFFER_HANDLE_INVALID;
 
+    led_Clear();
+    resetAnimation();
+    myData[0] = -1;
 }
 
 /******************************************************************************
@@ -112,48 +134,59 @@ void SERIAL_RCV_Tasks(void) {
 
     /* Check the application's current state. */
     switch (serial_rcvData.state) {
-            /* Application's initial state. */
+        //初期化
         case SERIAL_RCV_STATE_INIT:
         {
-            bool appInitialized = true;
-
-            if (appInitialized) {
-                resetAnimation();
-                myData[0] = -1;
+            serial_rcvData.usartHandle = DRV_USART_Open(DRV_USART_INDEX_0, DRV_IO_INTENT_READ);
+            if (serial_rcvData.usartHandle != DRV_HANDLE_INVALID)
+            {
+                DRV_USART_BufferEventHandlerSet(serial_rcvData.usartHandle, SERIAL_RCV_USARTBufferEventHandler, 0);
                 serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
             }
+            else
+            {
+                serial_rcvData.state = SERIAL_RCV_STATE_ERROR;
+            }
+
             break;
         }
-
+        
+        //受信待機
         case SERIAL_RCV_STATE_RECEIVE_DATA:
-        {
+
             DRV_USART_ReadBufferAdd(serial_rcvData.usartHandle, serial_rcvData.readBuffer, SERIAL_RCV_DATA_SIZE, &serial_rcvData.bufferHandle);
-            if (serial_rcvData.bufferHandle != DRV_USART_BUFFER_HANDLE_INVALID) {
+            if (serial_rcvData.bufferHandle != DRV_USART_BUFFER_HANDLE_INVALID)
+            {
                 serial_rcvData.state = SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE;
-            } else {
+            }
+            else
+            {
                 serial_rcvData.state = SERIAL_RCV_STATE_ERROR;
             }
             break;
-        }
+
+        //受信完了
         case SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE:
+
             led_Toggle();
-            GARAPIKO_receive(serial_rcvData.readBuffer[0]);
             serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
-            break;
-            
-            /* TODO: implement your application state machine.*/
-        case SERIAL_RCV_STATE_ERROR:
-            led_Clear();
-            serial_rcvData.state = SERIAL_RCV_STATE_IDLE;
+            GARAPIKO_receive(serial_rcvData.readBuffer[0]);
             break;
 
-        case SERIAL_RCV_STATE_IDLE:
-            /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
+
+        //エラー
+        case SERIAL_RCV_STATE_ERROR:
+            
+            led_Clear();
+            serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
             break;
-        }
+
+        //通常
+        case SERIAL_RCV_STATE_IDLE:
+        default:
+            led_Clear();
+            serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
+            break;
     }
 }
 

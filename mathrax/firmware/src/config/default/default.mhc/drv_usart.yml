@@ -36,6 +36,13 @@ children:
           children:
           - type: Dynamic
             attributes: {id: drv_usart_0, value: UART1}
+      - type: Integer
+        attributes: {id: DRV_USART_QUEUE_SIZE}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: '5'}
       - type: Boolean
         attributes: {id: DRV_USART_RX_DMA}
         children:

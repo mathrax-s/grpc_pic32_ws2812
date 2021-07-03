@@ -235,7 +235,6 @@ void SYS_Initialize ( void* data )
 
 	UART1_Initialize();
 
-    DMAC_Initialize();
 
     sysObj.drvUsart0 = DRV_USART_Initialize(DRV_USART_INDEX_0, (SYS_MODULE_INIT *)&drvUsart0InitData);
 

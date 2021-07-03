@@ -16,7 +16,6 @@ build/default/production/_ext/869808652/drv_usart.o: \
  ../src/config/default/system/int/sys_int_mapping.h \
  ../src/config/default/system/dma/sys_dma.h \
  ../src/config/default/system/dma/sys_dma_mapping.h \
- ../src/config/default/peripheral/dmac/plib_dmac.h \
  ../src/config/default/driver/usart/src/drv_usart_local.h \
  ../src/config/default/osal/osal.h \
  ../src/config/default/osal/osal_definitions.h \
@@ -56,8 +55,6 @@ build/default/production/_ext/869808652/drv_usart.o: \
 ../src/config/default/system/dma/sys_dma.h:
 
 ../src/config/default/system/dma/sys_dma_mapping.h:
-
-../src/config/default/peripheral/dmac/plib_dmac.h:
 
 ../src/config/default/driver/usart/src/drv_usart_local.h:
 

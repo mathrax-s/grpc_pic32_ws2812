@@ -27,6 +27,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -71,16 +72,16 @@ extern "C" {
         SERIAL_RCV_STATE_INIT = 0,
         SERIAL_RCV_STATE_SERVICE_TASKS,
         /* TODO: Define states used by the application state machine. */
-        //        SERIAL_RCV_STATE_TRANSMIT_MESSAGE,
-        //        SERIAL_RCV_STATE_WAIT_MESSAGE_TRANSFER_COMPLETE,
+        SERIAL_RCV_STATE_TRANSMIT_MESSAGE,
+        SERIAL_RCV_STATE_WAIT_MESSAGE_TRANSFER_COMPLETE,
 
         SERIAL_RCV_STATE_RECEIVE_DATA,
         SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE,
         SERIAL_RCV_STATE_GARAPIKO_RECEIVE,
         SERIAL_RCV_STATE_GARAPIKO_LED,
 
-        //        SERIAL_RCV_STATE_TRANSMIT_DATA,
-        //        SERIAL_RCV_STATE_WAIT_TRANSMIT_COMPLETE,
+        SERIAL_RCV_STATE_TRANSMIT_DATA,
+        SERIAL_RCV_STATE_WAIT_TRANSMIT_COMPLETE,
 
         SERIAL_RCV_STATE_ERROR,
         SERIAL_RCV_STATE_IDLE,
@@ -109,7 +110,7 @@ extern "C" {
         DRV_HANDLE usartHandle;
         DRV_USART_BUFFER_HANDLE bufferHandle;
         char readBuffer[SERIAL_RCV_DATA_SIZE];
-//        volatile bool transferStatus;
+        volatile bool transferStatus;
     } SERIAL_RCV_DATA;
 
     // *****************************************************************************

@@ -60,7 +60,6 @@
 
 
 void UART_1_InterruptHandler( void );
-void DMA_0_InterruptHandler( void );
 
 
 
@@ -68,11 +67,6 @@ void DMA_0_InterruptHandler( void );
 void __ISR(_UART_1_VECTOR, ipl4SOFT) UART_1_Handler (void)
 {
     UART_1_InterruptHandler();
-}
-
-void __ISR(_DMA_0_VECTOR, ipl1SOFT) DMA_0_Handler (void)
-{
-    DMA_0_InterruptHandler();
 }
 
 

@@ -8,9 +8,8 @@ build/default/production/_ext/1360937237/garapico_led.o: \
  ../src/./animation_data/sleep_heart.h \
  ../src/./animation_data/normal_blink.h ../src/./animation_data/star.h \
  ../src/./animation_data/wave.h ../src/./animation_data/energy.h \
- ../src/./animation_data/onpu_blue.h ../src/./animation_data/onpu_pink.h \
- ../src/./animation_data/shinobi.h ../src/./animation_data/mini_heart.h \
- ../src/./animation_data/baloon.h
+ ../src/./animation_data/fire.h ../src/./animation_data/mini_heart.h \
+ ../src/./animation_data/clock_anime.h ../src/./animation_data/drop.h
 
 ../src/garapico_led.h:
 
@@ -44,12 +43,10 @@ build/default/production/_ext/1360937237/garapico_led.o: \
 
 ../src/./animation_data/energy.h:
 
-../src/./animation_data/onpu_blue.h:
-
-../src/./animation_data/onpu_pink.h:
-
-../src/./animation_data/shinobi.h:
+../src/./animation_data/fire.h:
 
 ../src/./animation_data/mini_heart.h:
 
-../src/./animation_data/baloon.h:
+../src/./animation_data/clock_anime.h:
+
+../src/./animation_data/drop.h:
