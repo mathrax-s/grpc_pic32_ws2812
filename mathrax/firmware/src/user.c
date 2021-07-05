@@ -631,24 +631,25 @@ int resetAnimation() {
 
 }
 
-int g_animation(GARAPICO g, uint8_t speed, uint8_t loop) {
+int g_animation(GARAPICO _g, uint8_t _speed, uint8_t _loop, uint8_t _bright) {
+    
     //    ENERGY
-    if (frameCount % speed == 0) {
+    if (frameCount % _speed == 0) {
         frameCount = 0;
         aCnt++;
-        if (aCnt >= g.framesize) {
-            if (loop == ONCE) {
-                aCnt = g.framesize - 1;
-            } else if (loop == LOOP) {
+        if (aCnt >= _g.framesize) {
+            if (_loop == ONCE) {
+                aCnt = _g.framesize - 1;
+            } else if (_loop == LOOP) {
                 aCnt = 0;
             }
-            if (g.reset == 1) {
+            if (_g.reset == 1) {
                 myData[0] = 0;
                 deletePattern();
             }
         }
     }
-    setPattern(g.picture[g.frame[aCnt]], 2);
+    setPattern(_g.picture[_g.frame[aCnt]], _bright);
     return 0;
 }
 

@@ -167,10 +167,14 @@ void SERIAL_RCV_Tasks(void) {
 
         //受信完了
         case SERIAL_RCV_STATE_WAIT_RECEIVE_COMPLETE:
-
-            led_Toggle();
-            serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
-            GARAPIKO_receive(serial_rcvData.readBuffer[0]);
+            if(serial_rcvData.transferStatus == true)
+            {
+                serial_rcvData.transferStatus = false;
+  
+                led_Toggle();
+                serial_rcvData.state = SERIAL_RCV_STATE_RECEIVE_DATA;
+                GARAPIKO_receive(serial_rcvData.readBuffer[0]);
+            }
             break;
 
 

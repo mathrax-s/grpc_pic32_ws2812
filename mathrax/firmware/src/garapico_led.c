@@ -161,7 +161,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_startup;
                     gp.framesize = ARRAY_SIZE(frame_startup);
 
-                    g_animation(gp, 4, LOOP);
+                    g_animation(gp, 4, LOOP, 2);
                     break;
 
 
@@ -173,7 +173,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.framesize = ARRAY_SIZE(frame_hanabi);
                     gp.reset = 1;
 
-                    g_animation(gp, 3, ONCE);
+                    g_animation(gp, 3, ONCE, 2);
                     break;
 
 
@@ -184,7 +184,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_normal_blink;
                     gp.framesize = ARRAY_SIZE(frame_normal_blink);
 
-                    g_animation(gp, 16, LOOP);
+                    g_animation(gp, 16, LOOP, 2);
                     break;
 
                 case RIGHT:
@@ -193,7 +193,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_broken;
                     gp.framesize = ARRAY_SIZE(frame_broken);
 
-                    g_animation(gp, 3, LOOP);
+                    g_animation(gp, 3, LOOP, 2);
                     break;
 
                 case BATSU:
@@ -241,7 +241,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_wave;
                     gp.framesize = ARRAY_SIZE(frame_wave);
 
-                    g_animation(gp, 3, LOOP);
+                    g_animation(gp, 3, LOOP, 2);
 
                     break;
 
@@ -252,7 +252,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_clock_anime;
                     gp.framesize = ARRAY_SIZE(frame_clock_anime);
 
-                    g_animation(gp, 4, LOOP);
+                    g_animation(gp, 4, LOOP, 2);
                     break;
 
 //JOYSTICK R
@@ -277,7 +277,7 @@ void GARAPICO_LED_Tasks(void) {
                     gp.frame = frame_energy;
                     gp.framesize = ARRAY_SIZE(frame_energy);
 
-                    g_animation(gp, 4, ONCE);
+                    g_animation(gp, 4, ONCE, 2);
                     break;
             }
 

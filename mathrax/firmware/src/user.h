@@ -138,6 +138,7 @@ extern "C" {
         const unsigned char *frame;
         unsigned int framesize;
         unsigned char reset;
+        unsigned char bright;
     } GARAPICO;
 
     // *****************************************************************************
@@ -198,7 +199,7 @@ extern "C" {
     int show(void);
     int deletePattern(void);
     int resetAnimation(void);
-    int g_animation(GARAPICO g, uint8_t speed, uint8_t loop);
+    int g_animation(GARAPICO _g, uint8_t _speed, uint8_t _loop, uint8_t _bright);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus
